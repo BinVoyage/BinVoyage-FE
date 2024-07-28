@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import DefaultText from 'components/DefaultText';
 import {Palette} from 'constants/palette';
 import {Typo} from 'constants/typo';
 import styled from 'styled-components/native';
@@ -41,7 +42,7 @@ export const Dot = styled.View`
   background: ${Palette.Gray3};
 `;
 
-export const Text = styled.Text`
+export const Text = styled(DefaultText)`
   font-size: ${Typo.Title1.fontSize};
   font-weight: ${Typo.Title1.fontWeight};
   color: ${Palette.Black};
@@ -58,7 +59,7 @@ export const Button = styled.TouchableOpacity<{type: string}>`
   margin-top: auto;
 `;
 
-export const ButtonText = styled.Text<{type: string}>`
+export const ButtonText = styled(DefaultText)<{type: string}>`
   font-size: ${Typo.Button1.fontSize};
   font-weight: ${Typo.Button1.fontWeight};
   color: ${props => (props.type === 'next' ? Palette.Primary : Palette.White)};
