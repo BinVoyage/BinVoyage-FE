@@ -5,7 +5,7 @@ export default function LocaitonSvg({width, height, fill}: SvgProps) {
     <Svg width={width} height={height} viewBox="0 0 44 44" fill={fill}>
       <G id="location">
         <G id="Ellipse 7202" filter="url(#filter0_d_547_13532)">
-          <circle cx="22" cy="21" r="20" fill="white" />
+          <Circle cx="22" cy="21" r="20" fill="white" />
         </G>
         <G id="icon">
           <Path
@@ -18,33 +18,16 @@ export default function LocaitonSvg({width, height, fill}: SvgProps) {
         </G>
       </G>
       <Defs>
-        {/* <ilter id="filter0_d_547_13532" x="0" y="0" width="44" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> */}
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feOffset dy="1" />
-        <feGaussianBlur stdDeviation="1" />
-        <feComposite in2="hardAlpha" operator="out" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.44 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_547_13532"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow_547_13532"
-          result="shape"
-        />
-        {/* </filter> */}
+        <filter id="filter0_d_547_13532" x="0" y="0" width="44" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+          <feOffset dy="1" />
+          <feGaussianBlur stdDeviation="1" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.44 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_547_13532" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_547_13532" result="shape" />
+        </filter>
       </Defs>
     </Svg>
   );

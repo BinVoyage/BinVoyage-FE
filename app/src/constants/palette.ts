@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const Palette = {
   Primary: '#278FFF',
   P50: '#ECF9FF',

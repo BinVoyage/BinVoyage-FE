@@ -1,9 +1,10 @@
 import  { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
-import CurrentTab from "./CurrentTab";
+// import CurrentTab from "./CurrentTab";
 import Filter from "./Filter";
 import { trashpositions,recyclepositions } from "./Places";
 import Location from "./Locations";
 import axios from "axios";
+import CurrentTab from "./CurrentTab";
 
 declare global {
   interface Window {
@@ -123,11 +124,6 @@ getData()
 
 
 
-
-  
-
-
-
 // 재활용 쓰레기통
 let recycleimageSrc = "image/recyclemark.svg";
 
@@ -242,9 +238,9 @@ const map = new window.kakao.maps.Map(container as HTMLElement, options);
   return( 
     <>
   <div id="map" style={{ width: "100vw", height: "100vh"}} />
-   <CurrentTab children={save}/>
-   <Filter/>
-    <Location/>
+   {/* <CurrentTab children={save}/> */}
+   {/* <Filter/> */}
+    {/* <Location/> */}
   </>
 );
   

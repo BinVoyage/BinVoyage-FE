@@ -1,6 +1,5 @@
 export default function Location() {
   return (
-    // <Buttons>
     <button
       style={{
         position: 'absolute',
@@ -24,7 +23,6 @@ export default function Location() {
       }}>
       <img src="image/Location.svg" alt="현재 위치" />
     </button>
-    // </Buttons>
   );
 }
 

@@ -29,7 +29,7 @@ export default function CurrentTab({children}:TabProps) {
         display: "flex",
         alignContent:"space-between",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-        margin:"56px 0 0 12px ",
+        margin:"10px 0 0 12px ",
         color:"black",
       }}
     >

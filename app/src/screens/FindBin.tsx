@@ -1,16 +1,24 @@
 import {Text, View, Alert, Platform, StyleSheet} from 'react-native';
 import {WebView, WebViewMessageEvent} from 'react-native-webview';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useId, useRef, useState} from 'react';
 import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
 import {mapStore} from 'store/Store';
+import CurrentView from 'components/View/CurrentView';
+import Filter from 'components/Filter';
+import LocaitonSvg from 'assets/images/LocationSvg';
+import Location from 'components/View/Locations';
+import {useRequest} from 'hooks/useRequest';
+import ArroundAddress from 'components/View/AroundAddress';
 
 export default function FindBin() {
   const {setWebViewRef, setAddressList} = mapStore();
   const [save, setSave] = useState('');
+  const [savecoord, setSavecoord] = useState<string | null | undefined | number | any>('');
+
   const webViewRef = useRef<WebView>(null);
 
-  const URL = Platform.OS === 'android' ? 'http://192.168.35.143:5173' : 'http://localhost:5173';
+  const URL = Platform.OS === 'android' ? ' http://192.168.35.85:5173' : 'http://localhost:5173';
 
   const requestPermission = async () => {
     let result;
@@ -55,9 +63,11 @@ export default function FindBin() {
     setWebViewRef(webViewRef);
   }, [webViewRef]);
 
+  let r;
+
   useEffect(() => {
     const Ids = requestPermission();
-
+    r = Ids;
     return () => {
       if (typeof Ids === 'number') {
         Geolocation.clearWatch(Ids);
@@ -70,8 +80,7 @@ export default function FindBin() {
       const data = JSON.parse(e.nativeEvent.data);
       if (data.type === 'address') {
         setAddressList(data.payload.addressList);
-      }
-      if (data.type === 'save') {
+      } else if (data.type === 'save') {
         setSave(data.payload.save);
       }
     } catch (err) {
@@ -81,9 +90,11 @@ export default function FindBin() {
 
   return (
     <View style={styles.container}>
-      <WebView ref={webViewRef} style={styles.webview} source={{uri: URL}} javaScriptEnabled={true} onMessage={handleMessage}>
-        <View>{save}</View>
-      </WebView>
+      <CurrentView children={save} />
+      <Filter />
+      <WebView ref={webViewRef} style={styles.webview} source={{uri: URL}} javaScriptEnabled={true} onMessage={handleMessage} />
+      <Location onClick={r} />
+      {/* <ArroundAddress /> */}
     </View>
   );
 }
