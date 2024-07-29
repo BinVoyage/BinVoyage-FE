@@ -7,6 +7,11 @@ type CurrentLocation = {
   longitude: number;
 };
 
+type Filters = {
+  type :number;
+  id: number;
+}
+
 
 function App() {
   const markerList = MarkerStore(state => state.markers);
@@ -15,7 +20,11 @@ function App() {
     latitude: 37.5665,
     longitude: 126.978,
   };
+
   const [currentLocation, setCurrentLocation] = useState<CurrentLocation>(DefaultLocation);
+  const [zero, setZero] = useState<Filters>();
+  const [one, setOne] = useState<Filters>();
+  const [two, setTwo] = useState<Filters>();
 
     useEffect(() => {
       const handleMessage = (event: any) => {
@@ -27,7 +36,30 @@ function App() {
           });
           return currentLocation;
         }
+        if (message.type === 0) {
+          setZero({
+            type: message.payload.type,
+            id: message.payload.id,
+          });
+          return zero;
+        }
+        if (message.type === 1) {
+          setOne({
+            type: message.payload.type,
+            id: message.payload.id,
+          });
+          return one;
+        }
+        if (message.type === 2) {
+          setTwo({
+            type: message.payload.type,
+            id: message.payload.id,
+          });
+          return two;
+        }
       };
+      
+
       if (navigator.userAgent.match(/Android/i)) {
         document.addEventListener("message", handleMessage,true);
       } else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {

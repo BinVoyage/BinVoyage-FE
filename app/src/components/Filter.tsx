@@ -2,20 +2,57 @@ import styled from 'styled-components/native';
 import TrashRoundSvg from 'assets/images/TrashRoundSvg';
 import RecycleRoundSvg from 'assets/images/RecycleRoundSvg';
 import {Button, StyleSheet, Text, View} from 'react-native';
+import {WebView, WebViewMessageEvent} from 'react-native-webview';
+import {useEffect, useRef} from 'react';
+
+type Filters = {
+  onc: () => void;
+};
 
 export default function Filter() {
+  const webViewRef = useRef<WebView>();
+  const sendZero = () => {
+    const send0type = JSON.stringify({
+      type: 0,
+      id: 0,
+    });
+    if (webViewRef.current) {
+      webViewRef.current.postMessage(send0type);
+    }
+  };
+
+  const sendOne = () => {
+    const send1type = JSON.stringify({
+      type: 1,
+      id: 1,
+    });
+    if (webViewRef.current) {
+      webViewRef.current.postMessage(send1type);
+    }
+  };
+
+  const sendTwo = () => {
+    const send2type = JSON.stringify({
+      type: 2,
+      id: 2,
+    });
+    if (webViewRef.current) {
+      webViewRef.current.postMessage(send2type);
+    }
+  };
+
   return (
     <Container>
-      <RecentBox>
+      <RecentBox onPress={sendZero}>
         <Texts>Recently Visited</Texts>
       </RecentBox>
-      <RecycleButtons>
+      <RecycleButtons onPress={sendOne}>
         {/* <RecycleBox>
           <RecycleRoundSvg width="26px" height="26px" /> */}
         <Texts>recycling</Texts>
         {/* </RecycleBox> */}
       </RecycleButtons>
-      <TrashButtons>
+      <TrashButtons onPress={sendTwo}>
         {/* <TrashBox> */}
         {/* <TrashRoundSvg width="26px" height="26px" /> */}
         <Texts>Trash</Texts>
@@ -30,8 +67,6 @@ const Container = styled.SafeAreaView`
   top: 0;
   left: 0;
   right: 0;
-  /* z-index: 1000; */
-  /* cursor */
   width: 100%;
   height: 40px;
   display: 'flex';
