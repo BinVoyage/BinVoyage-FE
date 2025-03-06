@@ -12,11 +12,13 @@ import api from 'api/api';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useBackHandler} from 'hooks/useBackHandler';
+import { userStore } from 'store/Store';
 
 export default function Login() {
   useBackHandler();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [showTerms, setShowTerms] = useState(false);
+  const {setIsLoggedIn} = userStore();
 
   const checkTermsAgreement = async () => {
     try {
@@ -47,13 +49,14 @@ export default function Login() {
         const response = await api.post(`/login/oauth2?type=google&token=${userInfo.idToken}`);
 
         if (response.data.success) {
+          setIsLoggedIn(true);
           const hasAccount = response.data.data.user_name.length !== 0;
           await AsyncStorage.setItem('authToken', userInfo.idToken);
 
           if (hasAccount) {
             navigation.navigate('BottomNavigator');
           } else {
-            navigation.navigate('UserInput');
+            navigation.navigate('UserInput', {id_token: userInfo.idToken});
           }
         } else {
           Alert.alert('로그인 실패');
@@ -77,12 +80,13 @@ export default function Login() {
         const response = await api.post(`/login/oauth2?type=apple&token=${identityToken}&authorizationCode=${authorizationCode}`);
 
         if (response.data.success) {
+          setIsLoggedIn(true);
           const hasAccount = response.data.data.user_name.length !== 0;
           await AsyncStorage.setItem('authToken', identityToken);
           if (hasAccount) {
             navigation.navigate('BottomNavigator');
           } else {
-            navigation.navigate('UserInput');
+            navigation.navigate('UserInput', {id_token: identityToken});
           }
         } else {
           Alert.alert('로그인 실패');

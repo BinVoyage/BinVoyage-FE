@@ -1,6 +1,5 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import FindBin from 'screens/FindBin/FindBin';
-import MyPage from 'screens/myPage/MyPage';
+import FindBin from 'screens/findBin/FindBin';
 import HomeSvg from 'assets/images/HomeSvg';
 import MySvg from 'assets/images/MySvg';
 import BinSvg from 'assets/images/BinSvg';
@@ -20,16 +19,6 @@ export default function BottomNavigator() {
           tabBarItemStyle: styles.tabBarItem,
         }}>
         <Tab.Screen
-          name="HomeNavigator"
-          component={HomeNavigator}
-          options={{
-            headerShown: false,
-            tabBarLabel: 'HOME',
-            tabBarActiveTintColor: Palette.Primary,
-            tabBarIcon: ({focused}) => <HomeSvg width="25" height="24" fill={focused ? Palette.Primary : Palette.Gray3} />,
-          }}
-        />
-        <Tab.Screen
           name="FindBin"
           component={FindBin}
           options={{
@@ -37,6 +26,16 @@ export default function BottomNavigator() {
             tabBarLabel: 'FIND BINS',
             tabBarActiveTintColor: Palette.Primary,
             tabBarIcon: ({focused}) => <BinSvg width="25" height="24" fill={focused ? Palette.Primary : Palette.Gray3} />,
+          }}
+        />
+        <Tab.Screen
+          name="HomeNavigator"
+          component={HomeNavigator}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'HOME',
+            tabBarActiveTintColor: Palette.Primary,
+            tabBarIcon: ({focused}) => <HomeSvg width="25" height="24" fill={focused ? Palette.Primary : Palette.Gray3} />,
           }}
         />
         <Tab.Screen

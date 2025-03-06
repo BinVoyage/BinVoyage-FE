@@ -7,6 +7,7 @@ import ArrowNextSvgXs from 'assets/images/ArrowNextSvgXs';
 import BinSvg from 'assets/images/BinSvg';
 import FootPrintSvg from 'assets/images/FootPrintSvg';
 import S_Recycling from 'assets/images/S_Recycling';
+import WrongInfoSvg from 'assets/images/WrongInfoSvg';
 import ModalOpenMap from 'components/modalOpenMap/ModalOpenMap';
 import ReviewItem from 'components/reviewItem/ReviewItem';
 import {Palette} from 'constants/palette';
@@ -29,6 +30,7 @@ export default function BinDetail({route}: BinDetailProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const currentLocation = mapStore(state => state.currentPosition);
   const userInfo = userStore(state => state.userInfo);
+  const isLoggedIn = userStore(state => state.isLoggedIn);
 
   const [labelText, setLabelText] = useState<string>('');
 
@@ -124,6 +126,22 @@ export default function BinDetail({route}: BinDetailProps) {
     );
   };
 
+  const handleVerifyVisit = () => {
+    if (isLoggedIn) {
+      navigation.navigate('VerifyVisit', {
+        bin_id: binData?.bin_id ?? -1,
+        type_name: binData?.type_name ?? '',
+        location_type_name: binData?.location_type_name ?? '',
+        address: binData?.address ?? '',
+        detail: binData?.detail ?? '',
+        image: binData?.image ?? '',
+        coordinate: binData?.coordinate!,
+      });
+      return;
+    }
+    navigation.navigate('LoginInProcess');
+  }
+
   return (
     <>
       <S.Container>
@@ -165,6 +183,7 @@ export default function BinDetail({route}: BinDetailProps) {
                   })
                 }>
                 <S.RowWrapper style={{gap: 3}}>
+                  <WrongInfoSvg width={18} height={18}/>
                   <S.TextWrongInfo>Wrong Info?</S.TextWrongInfo>
                   <ArrowNextSvgXs width="7" height="12" fill={Palette.P400} />
                 </S.RowWrapper>
@@ -248,17 +267,7 @@ export default function BinDetail({route}: BinDetailProps) {
         <S.BtnContainer>
           <S.Button
             isPrimary
-            onPress={() =>
-              navigation.navigate('VerifyVisit', {
-                bin_id: binData?.bin_id ?? -1,
-                type_name: binData?.type_name ?? '',
-                location_type_name: binData?.location_type_name ?? '',
-                address: binData?.address ?? '',
-                detail: binData?.detail ?? '',
-                image: binData?.image ?? '',
-                coordinate: binData?.coordinate!,
-              })
-            }>
+            onPress={handleVerifyVisit}>
             <S.ButtonText>Verify visit</S.ButtonText>
           </S.Button>
           <S.Button onPress={() => setIsModalOpen(true)}>

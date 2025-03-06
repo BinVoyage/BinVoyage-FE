@@ -5,20 +5,14 @@ import {Dimensions} from 'react-native';
 import styled from 'styled-components/native';
 
 const screenWidth = Dimensions.get('window').width;
-const width = screenWidth - 40;
-const widthPassport = (width * 284) / 343;
-const heightPassport = (widthPassport * 363) / 264;
+const width = screenWidth - 30;
+const widthPassport = (width * 237) / 343;
 
 // 기준 너비 (디자인 시안의 너비)
 const guidelineBaseWidth = 375;
 
 // 너비 비율에 따른 폰트 크기 조정
 const scale = (size: number) => (screenWidth / guidelineBaseWidth) * size;
-
-export const Container = styled.View`
-  flex: 1;
-  background: ${Palette.Gray1};
-`;
 
 export const Inner = styled.ScrollView`
   flex: 1;
@@ -33,13 +27,18 @@ export const HeaderTitle = styled(DefaultText)`
   font-size: ${Typo.Title2.fontSize};
   font-weight: ${Typo.Title2.fontWeight};
   color: ${Palette.White};
-  padding: 0px 16px;
 `;
 
 export const Bridge = styled.TouchableOpacity`
   flex-direction: row;
-  margin: 12px 16px 26px;
+  margin: 12px 0px 26px;
   justify-content: center;
+  width: ${width};
+`;
+
+export const BridgeImg = styled.Image`
+  width: ${width};
+  aspect-ratio: 351 / 100;
 `;
 
 export const BridgeIconWrapper = styled.ImageBackground`
@@ -69,9 +68,9 @@ export const BridgeText = styled(DefaultText)`
 
 export const Body = styled.View`
   flex: 1;
-  border-radius: 12px 12px 0px 0px;
-  background: ${Palette.Gray1};
-  padding: 22px 20px 24px;
+  border-radius: 16px;
+  background: ${Palette.White};
+  padding: 16px 26px 22px;
 `;
 
 export const BodyTitle = styled(DefaultText)`
@@ -87,22 +86,18 @@ export const BodyDescription = styled(DefaultText)`
   margin: 6px 0px 22px;
 `;
 
-export const PassPortBg = styled.View`
-  position: relative;
-  width: ${width};
-  height: ${Math.round(heightPassport)};
-  background: ${Palette.White};
-  border-radius: 0px 18px 18px 0px;
-  align-self: center;
-`;
-
-export const PassPort = styled.View`
-  width: ${Math.round(widthPassport)};
-  height: ${Math.round(heightPassport)};
-  background: ${Palette.Secondary};
+export const PassPort = styled.TouchableOpacity`
+  width: ${widthPassport}px;
+  aspect-ratio: 474 / 606;
   border-radius: 0px 18px 18px 0px;
   align-items: center;
-  padding: 32px 13px;
+  /* padding: 32px 13px; */
+`;
+
+export const PassPortImg = styled.Image`
+  width: 100%;
+  height: 100%;
+  resizemode: contain;
 `;
 
 export const PassPortTitle = styled(DefaultText)`
@@ -149,7 +144,7 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
   background: ${Palette.Primary};
   border-radius: 10px;
-  margin-top: auto;
+  margin-top: 24px;
 `;
 
 export const ButtonText = styled(DefaultText)`

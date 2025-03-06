@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 type RootTabParamList = {
-  HomeNavigator: undefined;
+  HomeNavigator: {
+    screen: 'Home' | 'PassPort' | 'LoginInProcess';
+  }
   FindBin: undefined;
   MyNavigator: undefined;
 };
@@ -9,7 +11,7 @@ type RootStackParamList = {
   BottomNavigator: undefined;
   Login: undefined;
   OnBoarding: undefined;
-  UserInput: undefined;
+  UserInput: {id_token: string};
   NewTrashDetail: undefined;
   BinDetailNavigator: {
     screen: 'BinDetail' | 'FeedbackList' | 'ReportFeedback' | 'ReportWrongInfo' | 'VerifyVisit';
@@ -23,11 +25,13 @@ type RootStackParamList = {
       isVerifyVisit?: boolean;
     };
   };
+  ReportNewBinNavigator: undefined;
 };
 
 type RootHomeParamList = {
   Home: undefined;
   PassPort: undefined;
+  LoginInProcess: undefined;
 };
 
 type RootBinDetailParamList = {
@@ -52,10 +56,19 @@ type RootBinDetailParamList = {
     image: string;
     coordinate: [number, number];
   };
+  LoginInProcess: undefined;
+};
+
+type RootReportNewBinParamList = {
+  ReportNewBin: undefined;
+  ReportNewBinDetail: {
+    address: string;
+    coordinate: [number, number] | null; // [lat, lng]
+  };
 };
 
 type RootMyParamList = {
   MyPage: undefined;
-  MyComment: undefined;
+  MyFeedback: undefined;
   LoginInProcess: undefined;
 };

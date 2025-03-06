@@ -1,16 +1,16 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import api from 'api/api';
-import ArrowNextSvg from 'assets/images/ArrowNextSvg';
-import {Palette} from 'constants/palette';
 import {useBackHandler} from 'hooks/useBackHandler';
 import {useEffect, useState} from 'react';
 import * as S from 'screens/home/Home.style';
 import {userStore} from 'store/Store';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function Home() {
   useBackHandler();
   const navigation1 = useNavigation<NavigationProp<RootTabParamList>>();
   const navigation2 = useNavigation<NavigationProp<RootHomeParamList>>();
+  const navigation3 = useNavigation<NavigationProp<RootStackParamList>>();
   const {userInfo, isLoggedIn, setUserInfo} = userStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -27,55 +27,56 @@ export default function Home() {
         console.log(error);
       }
     };
+    console.log(isLoggedIn, userInfo?.user_name);
     getData();
     setIsLoading(false);
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo, isLoggedIn]);
+  const handlePassPort = () => {
+    if (isLoggedIn) {
+      navigation2.navigate('PassPort');
+      return;
+    }
+    navigation2.navigate('LoginInProcess');
+  };
+
+  const handleBtnReportNewBin = () => {
+    if (isLoggedIn) {
+      navigation3.navigate('ReportNewBinNavigator');
+      return;
+    }
+    navigation2.navigate('LoginInProcess');
+  };
 
   return (
-    <S.Container>
-      <S.Inner bounces={false}>
-        <S.TopWrapper>
-          {isLoading ? (
-            <S.HeaderTitle>isLoading...</S.HeaderTitle>
-          ) : userInfo?.user_name ? (
-            <S.HeaderTitle>{`${userInfo?.user_name}, Start your BinVoyage!`}</S.HeaderTitle>
-          ) : (
-            <S.HeaderTitle>{`User, Start your BinVoyage!`}</S.HeaderTitle>
-          )}
-          <S.Bridge onPress={() => navigation1.navigate('FindBin')}>
-            <S.BridgeIconWrapper source={require('assets/images/icon-trash-wrapper.png')} resizeMode="contain">
-              {/* <HomeTrashSvg width="40" height="66" /> */}
-              <S.BridgeIcon source={require('assets/images/icon-home-trash2x.png')} resizeMode="contain" />
-            </S.BridgeIconWrapper>
-            <S.BridgeTextWrapper source={require('assets/images/icon-text-wrapper.png')} resizeMode="stretch">
-              <S.BridgeText>{`Struggling to find bins? 😓\nTouch here to explore!`}</S.BridgeText>
-            </S.BridgeTextWrapper>
-          </S.Bridge>
-        </S.TopWrapper>
-
+    <LinearGradient
+      colors={['#278FFF', '#E4E6EA']}
+      start={{x: 0.5, y: 0}}
+      end={{x: 0.5, y: 1}}
+      locations={[0.1526, 0.2856]}
+      style={{flex: 1, paddingTop: 14, paddingHorizontal: 16, paddingBottom: 18}}>
+      <S.Inner bounces={false} showsVerticalScrollIndicator={false}>
+        {isLoading ? (
+          <S.HeaderTitle>isLoading...</S.HeaderTitle>
+        ) : userInfo?.user_name ? (
+          <S.HeaderTitle>{`${userInfo?.user_name}, Start your BinVoyage!`}</S.HeaderTitle>
+        ) : (
+          <S.HeaderTitle>{`User, Start your BinVoyage!`}</S.HeaderTitle>
+        )}
+        <S.Bridge onPress={() => navigation1.navigate('FindBin')}>
+          <S.BridgeImg source={require('assets/images/home-bridge.png')} />
+        </S.Bridge>
         <S.Body>
           <S.BodyTitle>{`Collect Seoul\nstamps during BinVoyage`}</S.BodyTitle>
           <S.BodyDescription>Stamp varies by the bin location.</S.BodyDescription>
-          <S.PassPortBg>
-            <S.ArrowNextWrapper onPress={() => navigation2.navigate('PassPort')}>
-              <ArrowNextSvg width="9" height="16" fill={Palette.Gray4} />
-            </S.ArrowNextWrapper>
-            <S.PassPort>
-              <S.PassPortTitle>PASSPORT</S.PassPortTitle>
-              <S.ImagePassPort source={require('assets/images/img-passport.png')} resizeMode="contain" />
-              <S.PassPortSubTitle>{`TO THE BINVOYAGE\nIN SEOUL`}</S.PassPortSubTitle>
-              <S.IconPassPort source={require('assets/images/icon-passport.png')} resizeMode="contain" />
-            </S.PassPort>
-          </S.PassPortBg>
-          {/* <S.Button>
-          <S.ButtonText>Find any new bin? Let us know!</S.ButtonText>
-        </S.Button> */}
+          <S.PassPort onPress={handlePassPort} style={{alignSelf: 'center'}}>
+            <S.PassPortImg source={require('assets/images/home-passport2.png')} resizeMode="contain" />
+          </S.PassPort>
+          <S.Button onPress={handleBtnReportNewBin}>
+            <S.ButtonText>Find any new bin? Let us know!</S.ButtonText>
+          </S.Button>
         </S.Body>
       </S.Inner>
-    </S.Container>
+    </LinearGradient>
   );
 }

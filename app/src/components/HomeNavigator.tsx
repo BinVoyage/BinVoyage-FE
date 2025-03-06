@@ -1,9 +1,7 @@
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from 'screens/home/Home';
+import LoginInProcess from 'screens/login/LoginInProcess';
 import PassPort from 'screens/passport/PassPort';
-import NewTrash from 'screens/NewTrash';
-import NewTrashDetail from 'screens/NewTrashDetail';
 
 export default function HomeNavigator() {
   const Stack = createNativeStackNavigator<RootHomeParamList>();
@@ -11,8 +9,7 @@ export default function HomeNavigator() {
     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false, gestureEnabled: true}}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="PassPort" component={PassPort} />
-      <Stack.Screen name="NewTrash" component={NewTrash} />
-      <Stack.Screen name="NewTrashDetail" component={NewTrashDetail} />
+      <Stack.Screen name="LoginInProcess" component={LoginInProcess} />
     </Stack.Navigator>
   );
 }

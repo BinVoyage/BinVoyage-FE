@@ -39,9 +39,9 @@ export default function LoginInProcess() {
           await AsyncStorage.setItem('authToken', userInfo.idToken);
 
           if (hasAccount) {
-            navigation.navigate('BottomNavigator');
+            navigation.goBack();
           } else {
-            navigation.navigate('UserInput');
+            navigation.navigate('UserInput', {id_token: userInfo.idToken});
           }
         } else {
           Alert.alert('로그인 실패');
@@ -69,9 +69,9 @@ export default function LoginInProcess() {
           const hasAccount = response.data.data.user_name.length !== 0;
           await AsyncStorage.setItem('authToken', identityToken);
           if (hasAccount) {
-            navigation.navigate('BottomNavigator');
+            navigation.goBack();
           } else {
-            navigation.navigate('UserInput');
+            navigation.navigate('UserInput', {id_token: identityToken});
           }
         } else {
           Alert.alert('로그인 실패');

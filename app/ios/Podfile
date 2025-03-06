@@ -35,7 +35,7 @@ target 'app' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
-
+  pod 'Firebase/Analytics'
   target 'appTests' do
     inherit! :complete
     # Pods for testing
@@ -55,5 +55,7 @@ target 'app' do
     'LocationAccuracy',
     'LocationAlways',
     'LocationWhenInUse',
+    'Camera',
+    'PhotoLibrary'
   ]);
 end

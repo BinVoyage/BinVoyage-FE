@@ -3,6 +3,7 @@ import Map from "./components/Map";
 import { mapStore } from "./store/Store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import VerifyVisit from "./components/VerifyVisit";
+import ReportNewBin from "./components/ReportNewBin";
 
 type CurrentLocation = {
   latitude: number;
@@ -139,6 +140,14 @@ function App() {
           path="/verify"
           element={
             verifyLocation && <VerifyVisit verifyLocation={verifyLocation} />
+          }
+        />
+        <Route
+          path="/reportNewBin"
+          element={
+            isLocationSet && currentLocation?
+            <ReportNewBin latitude={locationToUse.latitude}
+            longitude={locationToUse.longitude} triggerRefresh={triggerRefresh} /> : null
           }
         />
       </Routes>
